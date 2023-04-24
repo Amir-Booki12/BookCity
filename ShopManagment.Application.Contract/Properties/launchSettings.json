@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "ShopManagment.Application.Contract": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:63306;http://localhost:63310"
+    }
+  }
+}

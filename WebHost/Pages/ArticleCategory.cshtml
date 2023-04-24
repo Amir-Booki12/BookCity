@@ -1,0 +1,177 @@
+﻿@page "{id}"
+@model WebHost.Pages.ArticleCategoryModel
+@{
+    ViewData["Title"] = "گروه مقاله";
+}
+
+
+
+
+<div class="breadcrumb-area section-space--half">
+    <div class="container wide">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-wrapper breadcrumb-bg">
+                    <div class="breadcrumb-content">
+                        <h2 class="breadcrumb-content__title">@Model.ArticleCategory.Name</h2>
+                        <ul class="breadcrumb-content__page-map">
+                            <li>
+                                <a href="/Index" خانه</a>
+                            </li>
+                            <li class="active">@Model.ArticleCategory.Name</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-wrapper">
+                    <div class="page-content-wrapper">
+                        <div class="row">
+
+
+                            <div class="col-lg-9 order-1 order-lg-1">
+                                <!--=======  blog page content  =======-->
+                                <div class="blog-page-content">
+                                    <div class="row">
+                                        @foreach (var article in Model.ArticleCategory.Articles)
+                                        {
+                                            <div class="col-md-6">
+                                                <!--=======  single blog post  =======-->
+                                                <div class="single-blog-post">
+                                                    <div class="single-blog-post__image">
+                                                        <a href="/Article/@article.Slug">
+                                                            <img src="~/ProductPictures/@article.Picture" style="height:250px;width:320px;"
+                                                                 class="img-fluid"
+                                                                 alt="@article.PictureAlt" title="@article.PictureTitle">
+                                                        </a>
+
+                                                    </div>
+                                                    <div class="single-blog-post__content">
+                                                        <h3 class="title">
+                                                            <a href="/Article/@article.Slug">
+                                                                @article.Title
+                                                            </a>
+                                                        </h3>
+                                                        <p class="post-meta">
+                                                            <span class="date">@article.PublishDate</span>
+
+                                                        </p>
+                                                        <p class="short-desc">
+                                                            @article.ShortDescription
+                                                        </p>
+                                                        <a href="/Article/@article.Slug"
+                                                           class="blog-post-link">ادامه مطلب </a>
+                                                    </div>
+                                                </div>
+                                                <!--=======  End of single blog post  =======-->
+                                            </div>
+                                        }
+
+
+
+                                    </div>
+                                </div>
+
+                                <div class="pagination-area">
+                                    <div class="pagination-area__left">
+                                        Showing 1 to 9 of 11 (2 Pages)
+                                    </div>
+                                    <div class="pagination-area__right">
+                                        <ul class="pagination-section">
+                                            <li>
+                                                <a class="active" href="#">1</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">2</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">>|</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 order-2 order-lg-2">
+                                <div class="page-sidebar-wrapper">
+                                    <div class="single-sidebar-widget">
+
+                                        <h4 class="single-sidebar-widget__title">گروه مقالات</h4>
+                                        <ul class="single-sidebar-widget__category-list">
+                                            <li class="has-children">
+                                                @foreach (var ArticleCategory in Model.ArticleCategories)
+                                                {
+                                                    <a href="#" class="active">
+                                                        @ArticleCategory.Name <span class="counter">@ArticleCategory.ArticleCount</span>
+                                                    </a>
+                                                }
+
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="single-sidebar-widget">
+
+                                        <h4 class="single-sidebar-widget__title"> آخرین مقالات</h4>
+                                        <div class="block-container">
+                                            @foreach (var latest in Model.LatestArticles)
+                                            {
+                                                <div class="single-block d-flex">
+                                                    <div class="image">
+                                                        <a href="/Article/@latest.Slug">
+                                                            <img src="~/ProductPictures/@latest.Picture"
+                                                                 class="img-fluid"
+                                                                 alt="@latest.PictureAlt" title="@latest.PictureTitle">
+                                                        </a>
+                                                    </div>
+                                                    <div class="content">
+                                                        <p>
+                                                            <a href="blog-post-image-format.html">
+                                                                @latest.Title
+                                                            </a> <span>@latest.PublishDate</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            }
+
+
+
+                                        </div>
+                                    </div>
+
+                          
+                                    <!--=======  End of single sidebar widget  =======-->
+                                    <!--=======  single sidebar widget  =======-->
+                                    <div class="single-sidebar-widget">
+                                        <h4 class="single-sidebar-widget__title">تگ ها سایت </h4>
+                                        <ul class="single-sidebar-widget__tag-list">
+                                            @foreach(var tag in Model.ArticleCategory.KeywordList)
+                                            {
+                                                <li>
+                                                    <a href="#">@tag</a>
+                                                </li>
+                                            }
+
+
+                                        </ul>
+                                    </div>
+                                    <!--=======  End of single sidebar widget  =======-->
+                                </div>
+                                <!--=======  End of page sidebar wrapper  =======-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
