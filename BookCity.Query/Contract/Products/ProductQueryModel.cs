@@ -39,10 +39,14 @@ namespace BookCity.Query.Contract.Products
 
     public class CommentProduct
     {
-        public long ProductId { get;  set; }
+        public long OwnerRecordId { get;  set; }
         public long Id { get;  set; }
         public string Massege { get;  set; }
         public string Email { get;  set; }
         public string Name { get;  set; }
+        public string CreationDate { get;  set; }
+        public string ParentName{ get;  set; }
+        public long? ParentId{ get;  set; }
     }
+    
 }

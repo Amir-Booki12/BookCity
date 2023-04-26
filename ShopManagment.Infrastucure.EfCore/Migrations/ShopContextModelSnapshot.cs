@@ -22,48 +22,6 @@ namespace ShopManagment.Infrastucure.EfCore.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("ShopManagment.Domain.CommentAgg.Comment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(400)
-                        .HasColumnType("nvarchar(400)");
-
-                    b.Property<bool>("IsCanceled")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Massege")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Comments", (string)null);
-                });
-
             modelBuilder.Entity("ShopManagment.Domain.ProductAgg.Product", b =>
                 {
                     b.Property<long>("Id")
@@ -146,8 +104,8 @@ namespace ShopManagment.Infrastucure.EfCore.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("Keywords")
                         .IsRequired()
@@ -165,17 +123,14 @@ namespace ShopManagment.Infrastucure.EfCore.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Picture")
-                        .IsRequired()
                         .HasMaxLength(800)
                         .HasColumnType("nvarchar(800)");
 
                     b.Property<string>("PictureAlt")
-                        .IsRequired()
                         .HasMaxLength(600)
                         .HasColumnType("nvarchar(600)");
 
                     b.Property<string>("PictureTitle")
-                        .IsRequired()
                         .HasMaxLength(600)
                         .HasColumnType("nvarchar(600)");
 
@@ -287,17 +242,6 @@ namespace ShopManagment.Infrastucure.EfCore.Migrations
                     b.ToTable("Slides", (string)null);
                 });
 
-            modelBuilder.Entity("ShopManagment.Domain.CommentAgg.Comment", b =>
-                {
-                    b.HasOne("ShopManagment.Domain.ProductAgg.Product", "Product")
-                        .WithMany("Comments")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("ShopManagment.Domain.ProductAgg.Product", b =>
                 {
                     b.HasOne("ShopManagment.Domain.ProductCategoryAgg.ProductCategory", "Category")
@@ -322,8 +266,6 @@ namespace ShopManagment.Infrastucure.EfCore.Migrations
 
             modelBuilder.Entity("ShopManagment.Domain.ProductAgg.Product", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("productPictures");
                 });
 

@@ -3,24 +3,28 @@
 using _01_Framework.Application;
 using BlogManagment.Infrastucure.EfCore;
 using BookCity.Query.Contract.Article;
+using CommentManagment.Infrastucure.EfCore;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
+
 
 namespace BookCity.Query.Query
 {
     public class ArticleQuery : IArticleQuery
     {
         private readonly BlogContext _blogContext;
+        private readonly CommentContext _commentContext;
 
-        public ArticleQuery(BlogContext blogContext)
+        public ArticleQuery(BlogContext blogContext, CommentContext commentContext)
         {
             _blogContext = blogContext;
+            _commentContext = commentContext;
         }
 
         public ArticlesQueryModel GetDetails(string slug)
         {
-            var result= _blogContext.Articles.Include(x => x.Category).Select(x => new ArticlesQueryModel
+            var article = _blogContext.Articles.Include(x => x.Category).Select(x => new ArticlesQueryModel
             {
+                Id = x.Id,
                 Picture = x.Picture,
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle,
@@ -36,9 +40,34 @@ namespace BookCity.Query.Query
                 PublishDate = x.PublishDate.ToFarsi()
             }).FirstOrDefault(x => x.Slug == slug);
 
-            result.KeywordList = result.Keyword.Split(",").ToList();
+            article.KeywordList = article.Keyword.Split(",").ToList();
 
-            return result;
+            var comments = _commentContext.Comments
+                .Where(x => x.OwnerRecordId == article.Id)
+                .Where(x => x.Type == CommentType.Article)
+                .Where(x => x.IsConfirmed)
+                .Select(x => new Contract.Products.CommentProduct
+
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Email = x.Email,
+                    Massege = x.Massege,
+                    OwnerRecordId = x.OwnerRecordId,
+                    ParentId = x.ParentId,
+                    CreationDate = x.CreationDate.ToFarsi(),
+
+                }).OrderByDescending(x => x.Id).ToList();
+
+            foreach (var comment in comments)
+            {
+                if (comment.ParentId > 0)
+                    comment.ParentName = comments.FirstOrDefault(x => x.Id == comment.ParentId)?.Name;
+
+
+            }
+            article.Comments = comments;
+            return article;
         }
 
         public List<LatestArticleQueryModel> GetLatestArticels()

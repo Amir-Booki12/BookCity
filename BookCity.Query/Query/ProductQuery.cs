@@ -1,10 +1,11 @@
 ﻿
 using _01_Framework.Application;
 using BookCity.Query.Contract.Products;
+using CommentManagment.Infrastucure.EfCore;
 using DiscountManagment.Infrastucure.EfCore;
 using InventoryManagment.Infrasctucure.EfCore;
 using Microsoft.EntityFrameworkCore;
-using ShopManagment.Domain.CommentAgg;
+
 using ShopManagment.Domain.ProductPictureAgg;
 using ShopManagment.Infrastucure.EfCore;
 
@@ -16,12 +17,14 @@ namespace BookCity.Query.Query
         private readonly ShopContext _context;
         private readonly InventoryContext _inventoryContext;
         private readonly DiscountContext _discountContext;
+        private readonly CommentContext _commentContext;
 
-        public ProductQuery(ShopContext context, InventoryContext inventoryContext, DiscountContext discountContext)
+        public ProductQuery(ShopContext context, InventoryContext inventoryContext, DiscountContext discountContext, CommentContext commentContext)
         {
             _context = context;
             _inventoryContext = inventoryContext;
             _discountContext = discountContext;
+            _commentContext = commentContext;
         }
 
         public ProductQueryModel GetDetails(string slug)
@@ -33,11 +36,12 @@ namespace BookCity.Query.Query
                 .Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now)
                 .Select(x => new { x.ProductId, x.DiscountRate, x.EndDate }).ToList();
 
+            
 
             var Products = _context.products
                 .Include(x => x.Category)
                 .Include(x => x.productPictures)
-                .Include(x => x.Comments)
+                
                 .Select(x => new ProductQueryModel
                 {
                     Id = x.Id,
@@ -54,7 +58,7 @@ namespace BookCity.Query.Query
                     Code = x.Code,
 
                     Pictures = MapPictures(x.productPictures),
-                    Comments = MapComment(x.Comments)
+                   
 
                 }).FirstOrDefault(x => x.Slug == slug);
 
@@ -79,21 +83,23 @@ namespace BookCity.Query.Query
                 }
             }
 
+            Products.Comments= _commentContext.Comments.Where(x => x.Type == CommentType.Product)
+                .Where(x => x.OwnerRecordId == Products.Id)
+                .Where(x=>x.IsConfirmed)
+                .Select(x => new CommentProduct
+                {
+                    Id = x.Id,
+                    Email = x.Email,
+                    Massege = x.Massege,
+                    Name = x.Name,
+                    OwnerRecordId = x.OwnerRecordId,
+
+                }).OrderByDescending(x => x.Id).ToList();
 
             return Products;
         }
 
-        private static List<CommentProduct> MapComment(List<Comment> comments)
-        {
-            return comments.Where(x => x.IsConfirmed).Select(x => new CommentProduct
-            {
-                Id = x.Id,
-                Email = x.Email,
-                Massege = x.Massege,
-                Name = x.Name,
-                ProductId = x.ProductId
-            }).OrderByDescending(x => x.Id).ToList();
-        }
+      
 
         private static List<PictureProducts> MapPictures(List<ProductPicture> productPictures)
         {

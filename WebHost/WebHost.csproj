@@ -16,8 +16,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\AccountManagment.Infrastucure.Configuration\AccountManagment.Infrastucure.Configuration.csproj" />
 		<ProjectReference Include="..\BlogManagment.Infrastucure.Configuration\BlogManagment.Infrastucure.Configuration.csproj" />
 		<ProjectReference Include="..\BookCity.Query\BookCity.Query.csproj" />
+		<ProjectReference Include="..\CommentApplication.Application.Contracts\CommentApplication.Application.Contracts.csproj" />
+		<ProjectReference Include="..\CommentManagment.Infrastucure.Configuration\CommentManagment.Infrastucure.Configuration.csproj" />
 		<ProjectReference Include="..\DiscountManagment.Infrastucure.Configuration\DiscountManagment.Infrastucure.Configuration.csproj" />
 		<ProjectReference Include="..\InventoryManagment.Infrasctucure.Configuration\InventoryManagment.Infrasctucure.Configuration.csproj" />
 		<ProjectReference Include="..\ShopManagment.Infrastucure.Configoration\ShopManagment.Infrastucure.Configoration.csproj" />

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="01_Framework">
+      <HintPath>..\01_Framework\obj\Debug\net6.0\ref\01_Framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

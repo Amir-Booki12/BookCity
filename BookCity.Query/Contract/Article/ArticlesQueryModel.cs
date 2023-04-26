@@ -1,9 +1,12 @@
 ﻿
 
+using BookCity.Query.Contract.Products;
+
 namespace BookCity.Query.Contract.Article
 {
     public class ArticlesQueryModel
     {
+        public long Id { get; set; }
         public string Title { get; set; }
         public string ShortDescription { get; set; }
         public string Picture { get; set; }
@@ -18,6 +21,9 @@ namespace BookCity.Query.Contract.Article
         public string CannicalAddress { get;  set; }    
         public long CategoryId { get;  set; }
         public string CategoryName { get;  set; }
+       
+
+        public List<CommentProduct> Comments { get; set; }
     }
     
 }

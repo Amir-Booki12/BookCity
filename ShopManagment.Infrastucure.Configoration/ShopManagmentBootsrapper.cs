@@ -4,8 +4,7 @@ using BookCity.Query.Contract.Slides;
 using BookCity.Query.Query;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ShopManagment.Application.Comment;
-using ShopManagment.Application.Contract.Comment;
+
 using ShopManagment.Application.Contract.Product;
 using ShopManagment.Application.Contract.ProductCategory;
 using ShopManagment.Application.Contract.ProductPicture;
@@ -14,7 +13,7 @@ using ShopManagment.Application.Product;
 using ShopManagment.Application.ProductCategory;
 using ShopManagment.Application.ProductPicture;
 using ShopManagment.Application.Slide;
-using ShopManagment.Domain.CommentAgg;
+
 using ShopManagment.Domain.ProductAgg;
 using ShopManagment.Domain.ProductCategoryAgg;
 using ShopManagment.Domain.ProductPicture;
@@ -45,8 +44,7 @@ namespace ShopManagment.Infrastucure.Configoration
             service.AddTransient<ISlideRepository, SlideRepository>();
             service.AddTransient<ISlideApplication, SlideApplication>();
 
-            service.AddTransient<ICommentRepository, CommentRepository>();
-            service.AddTransient<ICommentApplication, CommentApplication>();
+          
 
             service.AddDbContext<ShopContext>(x=>x.UseSqlServer(connectionString));
         }

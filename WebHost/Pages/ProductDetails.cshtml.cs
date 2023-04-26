@@ -1,9 +1,11 @@
 
 using BookCity.Query.Contract.Products;
+using CommentApplication.Application.Contracts.Comment;
+using CommentManagment.Infrastucure.EfCore;
 using Microsoft.AspNetCore.Mvc;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using ShopManagment.Application.Contract.Comment;
+
 
 namespace WebHost.Pages
 {
@@ -25,6 +27,7 @@ namespace WebHost.Pages
 
         public IActionResult OnPost(AddComment commend,string productSlug)
         {
+            commend.Type = CommentType.Product;
             var result = _commentApplication.Add(commend);
 
             return RedirectToPage("./ProductDetails", new {Id= productSlug });

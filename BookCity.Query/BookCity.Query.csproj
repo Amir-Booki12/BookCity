@@ -10,6 +10,8 @@
     
     <ProjectReference Include="..\BlogManagment.Infrastucure.EfCore\BlogManagment.Infrastucure.EfCore.csproj" />
     
+    <ProjectReference Include="..\CommentManagment.Infrastucure.EfCore\CommentManagment.Infrastucure.EfCore.csproj" />
+    
     <ProjectReference Include="..\DiscountManagment.Infrastucure.EfCore\DiscountManagment.Infrastucure.EfCore.csproj" />
     <ProjectReference Include="..\InventoryManagment.Infrasctucure.EfCore\InventoryManagment.Infrasctucure.EfCore.csproj" />
     <ProjectReference Include="..\ShopManagment.Infrastucure.EfCore\ShopManagment.Infrastucure.EfCore.csproj" />

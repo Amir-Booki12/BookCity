@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 
+
 namespace ShopManagment.Application.Contract.ProductCategory
 {
     public class CreateProductCategory
@@ -13,21 +14,25 @@ namespace ShopManagment.Application.Contract.ProductCategory
         public string Name { get; set; }
         public string Description { get; set; }
 
-        [Required(ErrorMessage = ValidationMessages.IsRequired)]
+
 
         [MaxFileSize(maxFileSize: 3 * 1024 * 1024, ErrorMessage = ValidationMessages.MaxLenght)]
 
-         public IFormFile Picture { get;  set; }
-        public string PictureTitle { get;  set; }
-        public string PictureAlt { get;  set; }
+
+
+        public IFormFile Picture { get; set; }
+
+        public string PictureTitle { get; set; }
+
+        public string PictureAlt { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
-         public string Slug { get;  set; }
+        public string Slug { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
-        public string MetaDescription { get;  set; }
+        public string MetaDescription { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
-         public string Keywords { get;  set; }
+        public string Keywords { get; set; }
     }
 }
